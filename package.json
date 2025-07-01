@@ -1,0 +1,19 @@
+{
+  "name": "proyecto-final-ecommerce",
+  "version": "1.0.0",
+  "description": "proyecto final de ecommerce para TalentoTech",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev" : "node index.js"
+  },
+  "author": "Tomas Bozzano",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "5.1.0",
+    "firebase": "^11.10.0",
+    "jsonwebtoken": "^9.0.2"
+  }
+}
