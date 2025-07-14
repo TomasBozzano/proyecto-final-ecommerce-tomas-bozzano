@@ -52,7 +52,7 @@ npm i
 - SECRET_KEY
 
 ## Puerto del servidor
-PORT=3000
+- PORT=3000 (por defecto)
 
 ## Estructura
 ```
@@ -65,13 +65,9 @@ PORT=3000
 └── index.js
 ```
 
-## Script
+# Ejecutación del proyecto
 
-# Ejecuta el servidor en desarrollo con nodemon
-npm run dev
-
-# Ejecuta el servidor en producción
-npm start
+- npm run dev
 
 ## acceso a swagger
 http://localhost:3000/api-docs
