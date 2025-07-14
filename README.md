@@ -28,10 +28,12 @@ Este es un proyecto backend desarrollado con **Node.js**, **Express**, **Firebas
 ```bash
 git clone https://github.com/tomasbozzano/.git
 cd tu-repositorio
+```
 
 ## Instala dependencias
 ```bash
 npm i
+```
 
 # Configuración de Firebase
 FIREBASE_API_KEY=""
