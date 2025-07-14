@@ -33,7 +33,7 @@ app.use(
 );
 
 app.use('/auth', authRouter);
-app.use('/api/v1', productsRouter);
+app.use('/api', productsRouter);
 
 app.listen(PORT, () => {
   console.log(`Server is running on port http://localhost:${PORT}/api-docs`);
