@@ -1,7 +1,6 @@
 import express from 'express';
 import cors from 'cors';
 import session from 'express-session';
-import serverless from 'serverless-http';
 import swaggerUI from 'swagger-ui-express';
 import swaggerSpec from './src/utils/swagger.js';
 
@@ -9,7 +8,7 @@ import productsRouter from './src/routes/product.routes.js';
 import authRouter from './src/routes/auth.routes.js';
 
 const app = express();
-const { SECRET_KEY } = process.env;
+const { SECRET_KEY, PORT } = process.env;
 
 // Middlewares
 app.use(cors());
@@ -37,5 +36,5 @@ app.use('/auth', authRouter);
 app.use('/api/v1', productsRouter);
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}/api-docs`);
 });
