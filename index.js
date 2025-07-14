@@ -33,20 +33,9 @@ app.use(
   })
 );
 
-// Endpoint para servir el JSON de Swagger
-app.get('/api-docs/swagger.json', (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  res.send(swaggerSpec);
-});
-
-// Rutas principales
 app.use('/auth', authRouter);
 app.use('/api/v1', productsRouter);
 
-// Exportar como handler para Vercel
-export const handler = serverless(app);
-
-
-/*pp.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
-}*/
+});
