@@ -5,6 +5,7 @@ import authRouter from './src/routes/auth.routes.js';
 import session from 'express-session';
 import swaggerSpec from './src/utils/swagger.js';
 import swaggerUI from 'swagger-ui-express';
+import ServerlessHttp from 'serverless-http';
 
 const app = express();
 const {PORT , SECRET_KEY} = process.env;
@@ -23,6 +24,8 @@ app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 app.use('/auth', authRouter)
 app.use('/api/v1', productsRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server http://localhost:${PORT}/api-docs`);
-});
+export const handler = ServerlessHttp(app);
+
+/*pp.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+}*/
