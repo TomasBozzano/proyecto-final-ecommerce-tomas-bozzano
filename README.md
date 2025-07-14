@@ -2,6 +2,8 @@
 
 Este es un proyecto backend desarrollado con **Node.js**, **Express**, **Firebase** y **JWT**. Proporciona una API REST para el manejo de autenticación y productos, con documentación Swagger integrada.
 
+## 🛠️ Tecnologías utilizadas 
+
 - Node.js
 
 - Express.js
@@ -30,29 +32,30 @@ git clone https://github.com/tomasbozzano/.git
 cd tu-repositorio
 ```
 
-## Instala dependencias
+## 📦 Instalación dependencias
 ```bash
 npm i
 ```
 
-# Configuración de Firebase
-FIREBASE_API_KEY=""
-FIREBASE_AUTH_DOMAIN=""
-FIREBASE_PROJECT_ID=""
-FIREBASE_STORAGE_BUCKET=""
-FIREBASE_MESSAGING_SENDER_ID=""
-FIREBASE_APP_ID=""
-FIREBASE_MEASUREMENT_ID=""
+## Configuración de Firebase
 
-# Configuración de JWT
-JWT_SECRET_KEY=""
-SECRET_KEY=""
+- FIREBASE_API_KEY
+- FIREBASE_AUTH_DOMAIN
+- FIREBASE_PROJECT_ID
+- FIREBASE_STORAGE_BUCKET
+- FIREBASE_MESSAGING_SENDER_ID
+- FIREBASE_APP_ID
+- FIREBASE_MEASUREMENT_ID
 
-# Puerto del servidor
+## Configuración de JWT
+- JWT_SECRET_KEY
+- SECRET_KEY
+
+## Puerto del servidor
 PORT=3000
 
 ## Estructura
-
+```
 📁 src/
 ├── 📁 controllers/
 ├── 📁 routes/
@@ -60,6 +63,7 @@ PORT=3000
 ├── 📁 models/
 ├── 📁 utils/
 └── index.js
+```
 
 ## Script
 
@@ -71,3 +75,64 @@ npm start
 
 ## acceso a swagger
 http://localhost:3000/api-docs
+
+## 🧷 Métodos de la API
+
+```
+POST /auth/login
+
+POST /auth/logout
+
+GET /products
+
+GET /products/:id
+
+GET /products/filter
+
+POST /products
+
+PUT /products/:id
+
+DELETE /products/:id
+
+PATCH /products/:id
+
+```
+
+## Objecto product
+
+```json
+{
+    "id":"1",
+    "description":"T-shirt Boca Juniors Oficial",
+    "sku":"RBJO00200",
+    "stock":5,
+    "category":"Remeras",
+    "name":"T-shirt Boca",
+    "price":109.99}
+```
+
+## Objecto usuario
+
+```json
+{
+    "username":"",
+    "password":""
+}
+```
+
+## Tipos de usuarios
+
+- Admin tiene rol completo
+- User tiene rol user, solo le permite busqueda (Aunque se dejo que las consultas sean sin restricción)
+
+```json
+{
+    "username":"admin",
+    "password":"admin123"
+},
+{
+    "username":"user",
+    "password":"user123"
+}
+```
