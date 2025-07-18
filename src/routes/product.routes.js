@@ -8,6 +8,7 @@ import {
   deleteProduct,
   updateProductParcial
 } from '../controllers/product.controller.js';
+import { auth } from '../middlewares/auth.middleware.js';
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router
 
   /**
    * @swagger
-   * /api/v1/products:
+   * /api/products:
    *   get:
    *     tags: [Products]
    *     summary: Obtener todos los productos
@@ -44,7 +45,7 @@ router
 
 /**
  * @swagger
- * /api/v1/products/filter:
+ * /api/products/filter:
  *   get:
  *     tags: [Products]
  *     summary: Obtener productos filtrados
@@ -79,7 +80,7 @@ router
 
   /**
    * @swagger
-   * /api/v1/products/{id}:
+   * /api/products/{id}:
    *   get:
    *     tags: [Products]
    *     summary: Obtener un producto por ID
@@ -100,83 +101,85 @@ router
   .get('/products/:id', getProductById)
 
   /**
-   * @swagger
-   * /api/v1/products:
-   *   post:
-   *     tags: [Products]
-   *     summary: Crear un nuevo producto
-   *     description: Crea un nuevo producto con los datos proporcionados.
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               "name":
-   *                 type: string
-   *               "price":
-   *                 type: number
-   *               "description":
-   *                 type: string
-   *               "stock":
-   *                type: number
-   *               "category":
-   *                type: string
-   *               "sku":
-   *               type: string
-   *     responses:
-   *       201:
-   *         description: Producto creado exitosamente
-   *       400:
-   *         description: Datos inválidos
-   */
-  .post('/products', createProduct)
+ * @swagger
+ * /api/products:
+ *   post:
+ *     tags: [Products]
+ *     summary: Crear un nuevo producto
+ *     description: Crea un nuevo producto con los datos proporcionados.
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               stock:
+ *                 type: number
+ *               category:
+ *                 type: string
+ *               sku:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Producto creado exitosamente
+ *       400:
+ *         description: Datos inválidos
+ */
+.post('/products', auth, createProduct)
+
+
+/**
+ * @swagger
+ * /api/products/{id}:
+ *   put:
+ *     tags: [Products]
+ *     summary: Actualizar un producto por ID
+ *     description: Actualiza todos los campos de un producto existente.
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del producto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               price:
+ *                 type: number
+ *               description:
+ *                 type: string
+ *               stock:
+ *                 type: number
+ *               category:
+ *                 type: string
+ *               sku:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Producto actualizado exitosamente
+ *       404:
+ *         description: Producto no encontrado
+ */
+.put('/products/:id', auth, updateProduct)
+
 
   /**
    * @swagger
-   * /api/v1/products/{id}:
-   *   put:
-   *     tags: [Products]
-   *     summary: Actualizar un producto por ID
-   *     description: Actualiza todos los campos de un producto existente.
-   *     parameters:
-   *       - in: path
-   *         name: id
-   *         required: true
-   *         schema:
-   *           type: string
-   *         description: ID del producto
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             properties:
-   *               "name":
-   *                 type: string
-   *               "price":
-   *                 type: number
-   *               "description":
-   *                 type: string
-   *               "stock":
-   *                type: number
-   *               "category":
-   *                type: string
-   *               "sku":
-   *               type: string
-   *     responses:
-   *       200:
-   *         description: Producto actualizado exitosamente
-   *       404:
-   *         description: Producto no encontrado
-   */
-  .put('/products/:id', updateProduct)
-
-  /**
-   * @swagger
-   * /api/v1/products/{id}:
+   * /api/products/{id}:
    *   delete:
    *     tags: [Products]
    *     summary: Eliminar un producto por ID
@@ -194,11 +197,11 @@ router
    *       404:
    *         description: Producto no encontrado
    */
-  .delete('/products/:id', deleteProduct)
+  .delete('/products/:id', auth, deleteProduct)
 
   /**
    * @swagger
-   * /api/v1/products/{id}:
+   * /api/products/{id}:
    *   patch:
    *     tags: [Products]
    *     summary: Actualización parcial de un producto
@@ -224,6 +227,6 @@ router
    *       404:
    *         description: Producto no encontrado
    */
-  .patch('/products/:id', updateProductParcial);
+  .patch('/products/:id', auth, updateProductParcial);
 
 export default router;

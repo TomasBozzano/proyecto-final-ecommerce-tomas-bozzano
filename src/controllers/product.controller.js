@@ -2,10 +2,6 @@ import * as productService from '../services/product.service.js';
 
 //crear un producto
 export const createProduct = async (req, res) => {
-    if (!req.session.token) return res.status(401).json({ message: 'Inicie sesión' });
-
-    if (req.session.role != "admin") return res.status(401).json({ message: 'No autorizado' });
-
     try {
         const productData = req.body;
         const newProduct = await productService.addProduct(productData);
@@ -42,11 +38,6 @@ export const getProductById = async (req, res) => {
 
 //Actualizar un producto por ID
 export const updateProduct = async (req, res) => {
-
-    if (!req.session.token) return res.status(401).json({ message: 'Inicie sesión' });
-
-    if (req.session.role != "admin") return res.status(401).json({ message: 'No autorizado' });
-
     try {
         const productId = req.params.id;
         const updatedProductData = req.body;
@@ -59,11 +50,6 @@ export const updateProduct = async (req, res) => {
 
 //Eliminar un producto por ID
 export const deleteProduct = async (req, res) => {
-
-    if (!req.session.token) return res.status(401).json({ message: 'Inicie sesión' });
-
-    if (req.session.role != "admin") return res.status(401).json({ message: 'No autorizado' });
-
     try {
         const productId = req.params.id;
         const response = await productService.deleteProduct(productId);
@@ -75,11 +61,6 @@ export const deleteProduct = async (req, res) => {
 
 //Actualizar parcialmente un producto por ID
 export const updateProductParcial = async (req, res) => {
-
-    if (!req.session.token) return res.status(401).json({ message: 'Inicie sesión' });
-
-    if (req.session.role != "admin") return res.status(401).json({ message: 'No autorizado' });
-
     try {
         const productId = req.params.id;
         const updatedProductData = req.body;
