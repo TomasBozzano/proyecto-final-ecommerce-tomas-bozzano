@@ -1,5 +1,6 @@
 import 'dotenv/config';
 
+//config firebase para cliente
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
@@ -7,6 +8,7 @@ const firebaseConfig = {
   apiKey: process.env.FIREBASE_API_KEY,
   authDomain: process.env.FIREBASE_AUTH_DOMAIN,
   projectId: "proyecto-final-ecommerce-tomas",
+  databaseURL: process.env.FIREBASE_BASE_URL,
   storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
   messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.FIREBASE_APP_ID,

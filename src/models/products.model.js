@@ -1,13 +1,13 @@
-import { db } from './firebase.js';
-import { collection, doc, deleteDoc, updateDoc, getDoc, setDoc, getDocs } from 'firebase/firestore';
+import { db } from './firebase-admin.model.js';
 
-const productsCollection = collection(db, 'products');
+// const productsCollection = collection(db, 'products');
+const productsCollection = db.collection('products');
 
 // Función para obtener todos los productos
 export const getProducts = async () => {
 
     try {
-        const dataBD = await getDocs(productsCollection);
+        const dataBD = await productsCollection.get();
         const products = [];
         dataBD.forEach((doc) => {
             console.log('Producto: ', doc.data());
@@ -27,8 +27,7 @@ export const deleteProduct = async (productId) => {
     }
 
     try {
-        const productDoc = await doc(productsCollection, productId);
-        await deleteDoc(productDoc);
+        await productsCollection.doc(productId).delete();
         return { message: 'Producto eliminado exitosamente' };
     } catch (error) {
         throw new Error('Error al eliminar el producto');
@@ -38,8 +37,8 @@ export const deleteProduct = async (productId) => {
 export const updateProduct = async (productId, updatedProduct) => {
     const { name, price, description, sku, stock, category } = updatedProduct;
     //product parcial o total con datos
-    const productUpdated = await getProductById(productId);
-    if (!productUpdated) {
+    const productUpdated = await productsCollection.doc(productId).get();
+    if (!productUpdated.exists) {
         throw new Error('Producto no encontrado');
     }
 
@@ -48,8 +47,8 @@ export const updateProduct = async (productId, updatedProduct) => {
     }
 
     try {
-        const productDoc = doc(productsCollection, productId);
-        await updateDoc(productDoc, updatedProduct);
+        const productDoc = productsCollection.doc(productId);
+        await productDoc.update(updatedProduct);
         return { id: productId, ...updatedProduct };
     } catch (error) {
         throw new Error('Error al actualizar el producto');
@@ -58,7 +57,7 @@ export const updateProduct = async (productId, updatedProduct) => {
 
 // Función para actualizar parcialmente un producto por ID
 export const updateProductParcial = async (productId, updatedProduct) => {
-    const productUpdated = await getProductById(productId);
+    const productUpdated = await productsCollection.doc(productId).get();
     if (!productUpdated) {
         throw new Error('Producto no encontrado');
     }
@@ -71,9 +70,9 @@ export const updateProductParcial = async (productId, updatedProduct) => {
     });
 
     try {
-        const productDoc = doc(productsCollection, productId);
-        await updateDoc(productDoc, productUpdated);
-        return { id: productId, ...productUpdated };
+        const productDoc = productsCollection.doc(productId);
+        await productDoc.update(updatedProduct);
+        return { id: productId, ...updatedProduct };
     } catch (error) {
         throw new Error('Error al actualizar parcialmente el producto');
     }
@@ -87,8 +86,8 @@ export const getProductById = async (productId) => {
     }
 
     try {
-        const productDoc = await getDoc(doc(productsCollection, productId));
-        if (productDoc.exists()) {
+        const productDoc = await productsCollection.doc(productId).get();
+        if (productDoc.exists) {
             return productDoc.data();
         }
     } catch (error) {
@@ -105,12 +104,12 @@ export const addProduct = async (product) => {
     }
 
     try {
-        const documents = await getDocs(productsCollection);
+        const documents = await productsCollection.get();
         const nextID = documents.size + 1;
         console.log('Agregando producto:', product);
         console.log('Proximo ID:', nextID);
-        const docRef = doc(productsCollection, nextID.toString());
-        await setDoc(docRef, product);
+        const docRef = productsCollection.doc(nextID.toString());
+        await docRef.set(product);
         return {
             id: nextID,
             ...product
@@ -125,11 +124,8 @@ export const filterProducts = async (category, name) => {
     if (!category && !name) {
         throw new Error('Debe proporcionar al menos una categoría o nombre para filtrar');
     }
-
     try {
-
-
-        const dataBD = await getDocs(productsCollection);
+        const dataBD = await productsCollection.get();
         const products = [];
         dataBD.forEach((doc) => {
             const {category: productCategory, name: productName} = doc.data();

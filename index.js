@@ -32,7 +32,7 @@ app.use(
   })
 );
 
-app.use('/',(req,res) => {
+app.get('/',(req,res) => {
   res.json({ message: "Bienvenido a la API de TalentoTech" });
 });
 app.use('/auth', authRouter);
