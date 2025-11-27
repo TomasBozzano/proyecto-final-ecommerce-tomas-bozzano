@@ -4,7 +4,7 @@ import session from 'express-session';
 
 import authRouter from './src/routes/auth.routes.js';
 import productsRouter from './src/routes/product.routes.js';
-import { swaggerRouter } from './src/routes/swagger.route.js';
+import swaggerRouter from './src/routes/swagger.route.js';
 
 const app = express();
 const { SECRET_KEY, PORT } = process.env;

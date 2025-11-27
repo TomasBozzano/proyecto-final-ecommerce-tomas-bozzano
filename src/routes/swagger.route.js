@@ -1,7 +1,7 @@
-import {express} from 'express';
-import swaggerSpec from '../utils/swagger';
+import express from 'express';
+import swaggerSpec from '../utils/swagger.js';
 
-export const swaggerRouter = express.Router();
+const swaggerRouter = express.Router();
 
 swaggerRouter
 .get('/', (req, res) => {
@@ -33,3 +33,4 @@ swaggerRouter
   `);
 });
 
+export default swaggerRouter;
