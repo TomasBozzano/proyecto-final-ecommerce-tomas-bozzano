@@ -1,11 +1,10 @@
-import express from 'express';
 import cors from 'cors';
+import express from 'express';
 import session from 'express-session';
-import swaggerUI from 'swagger-ui-express';
-import swaggerSpec from './src/utils/swagger.js';
 
-import productsRouter from './src/routes/product.routes.js';
 import authRouter from './src/routes/auth.routes.js';
+import productsRouter from './src/routes/product.routes.js';
+import { swaggerRouter } from './src/routes/swagger.route.js';
 
 const app = express();
 const { SECRET_KEY, PORT } = process.env;
@@ -20,21 +19,22 @@ app.use(session({
   cookie: { secure: false }
 }));
 
-// Swagger UI
-app.use(
-  '/api-docs',
-  swaggerUI.serve,
-  swaggerUI.setup(swaggerSpec, {
-    explorer: true,
-    swaggerOptions: {
-      url: '/api-docs/swagger.json',
-    },
-  })
-);
+// // Swagger UI
+// app.use(
+//   '/api-docs',
+//   swaggerUI.serve,
+//   swaggerUI.setup(swaggerSpec, {
+//     explorer: true,
+//     swaggerOptions: {
+//       url: '/api-docs/swagger.json',
+//     },
+//   })
+// );
 
-app.get('/',(req,res) => {
+app.get('/', (req, res) => {
   res.json({ message: "Bienvenido a la API de TalentoTech" });
 });
+app.use('/api-docs', swaggerRouter);
 app.use('/auth', authRouter);
 app.use('/api', productsRouter);
 
