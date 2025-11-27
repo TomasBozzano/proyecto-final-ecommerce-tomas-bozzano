@@ -28,7 +28,7 @@ Este es un proyecto backend desarrollado con **Node.js**, **Express**, **Firebas
 1. **Clona el repositorio**
 
 ```bash
-git clone [https://github.com/tomasbozzano/api-ecommerce.git](https://github.com/TomasBozzano/api-ecommerce.git)
+git clone https://github.com/tomasbozzano/api-ecommerce.git
 cd tu-repositorio
 ```
 
