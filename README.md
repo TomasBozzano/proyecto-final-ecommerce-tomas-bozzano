@@ -28,7 +28,7 @@ Este es un proyecto backend desarrollado con **Node.js**, **Express**, **Firebas
 1. **Clona el repositorio**
 
 ```bash
-git clone https://github.com/tomasbozzano/.git
+git clone [https://github.com/tomasbozzano/api-ecommerce.git](https://github.com/TomasBozzano/api-ecommerce.git)
 cd tu-repositorio
 ```
 
@@ -64,7 +64,7 @@ npm i
 - npm run dev
 
 ## acceso a swagger
-http://localhost:3000/api-docs
+[/api-docs](https://api-rest-ecommerce-ten.vercel.app/api-docs)
 
 ## 🧷 Métodos de la API
 
